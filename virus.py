@@ -12,12 +12,12 @@ def test_virus_instantiation():
     '''Check to make sure that the virus instantiator is working.'''
     virus = Virus("HIV", 0.8, 0.3)
     assert virus.name == "HIV"
-    assert virus.repro_num == 0.8
+    assert virus.repro_rate == 0.8
     assert virus.mortality_rate == 0.3
 
     malaria = Virus('malaria', 0.6, 0.1)
     assert malaria.name == "malaria"
-    assert malaria.repro_num == 0.6
+    assert malaria.repro_rate == 0.6
     assert malaria.mortality_rate == 0.1
 
     blackDeath = Virus('blackDeath', 0.8, 0.7)
