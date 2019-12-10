@@ -173,14 +173,14 @@ class Simulation(object):
 
 def test_infect_newly_infected():
     virus = Virus("homework", 0.4, 0.6)
-    sim = Simulation(100 0.2, virus, 12)
+    sim = Simulation(100, 0.2, virus, 12)
 
     sim._infect_newly_infected()
     assert sim.total_infected == 12
 
 def test_create_population():
     virus = Virus("pigs", 0.4, 0.6)
-    sim = Simulation(100 0.2, virus, 12)
+    sim = Simulation(100, 0.2, virus, 12)
     
     infected_list = []
     vacc_list = []
@@ -195,19 +195,25 @@ def test_create_population():
             vacc_list.append(person)
     
     print("Infected: ", len(infected_list))
-    assert len(infected_list) = 10
+    assert len(infected_list) == 10
 
     print("Vaccinated: ", len(vacc_list))
-    assert len(vacc_list) = 50
+    assert len(vacc_list) == 50
 
-    assert sim.total_vaccinated = len(vacc_list)
+    assert sim.total_vaccinated == len(vacc_list)
 
 def test_simulation_should_continue():
+    virus = Virus("anything", 0.4, 0.6)
+    sim = Simulation(100, 0.2, virus, 12)
 
-
+    assert sim.pop_size == 100
+    assert sim.vacc_percentage == 0.2
+    assert sim.virus == virus
+    assert sim.initial_infected == 12
 
 if __name__ == "__main__":
     params = sys.argv[1:]
+    print(params)
     virus_name = str(params[0])
     repro_rate = float(params[1])
     mortality_rate = float(params[2])
