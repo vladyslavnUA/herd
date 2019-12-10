@@ -166,15 +166,45 @@ class Simulation(object):
     def _infect_newly_infected(self):
         ''' This method should iterate through the list of ._id stored in self.newly_infected
         and update each Person object with the disease. '''
-        # TODO: Call this method at the end of every time step and infect each Person.
-        # TODO: Once you have iterated through the entire list of self.newly_infected, remember
-        # to reset self.newly_infected back to an empty list.
         for person in self.newly_infected:
             self.population[person].infection = self.virus
             self.total_infected += 1
         self.newly_infected.clear()
-        
-#todo: add test functions
+
+def test_infect_newly_infected():
+    virus = Virus("homework", 0.4, 0.6)
+    sim = Simulation(100 0.2, virus, 12)
+
+    sim._infect_newly_infected()
+    assert sim.total_infected == 12
+
+def test_create_population():
+    virus = Virus("pigs", 0.4, 0.6)
+    sim = Simulation(100 0.2, virus, 12)
+    
+    infected_list = []
+    vacc_list = []
+
+    print("The Total Population: ", len(sim.population))
+    assert len(sim.population) == 150
+
+    for person in sim.population:
+        if person.infection != None:
+            infected_list.append(person)
+        elif person.is_vaccinated:
+            vacc_list.append(person)
+    
+    print("Infected: ", len(infected_list))
+    assert len(infected_list) = 10
+
+    print("Vaccinated: ", len(vacc_list))
+    assert len(vacc_list) = 50
+
+    assert sim.total_vaccinated = len(vacc_list)
+
+def test_simulation_should_continue():
+
+
 
 if __name__ == "__main__":
     params = sys.argv[1:]
