@@ -45,6 +45,7 @@ class Simulation(object):
         self.population = self._create_population(self.initial_infected)
         self.current_infected = 0 # Int
         self.additional_deaths = 0
+        self.additional_vacc = 0
         self.total_dead = 0 # Int
         self.file_name = "log.txt"
         self.logger = Logger(self.file_name)
@@ -69,18 +70,18 @@ class Simulation(object):
 
         # Use the attributes created in the init method to create a population that has
         # the correct intial vaccination percentage and initial infected.
-        population = []
+        popul = []
         vacc_num = int(self.pop_size * self.vacc_percentage)
         for person_count in range(self.pop_size):
             if person_count < initial_infected:
-                population.append(Person(person_count, False, self.virus))
+                popul.append(Person(person_count, False, self.virus))
                 self.total_infected += 1
             elif person_count < initial_infected + vacc_num:
-                population.append(Person(person_count, True))
+                popul.append(Person(person_count, True))
                 self.total_vaccinated += 1
             else:
-                population.append(Person(person_count, False))
-        return population
+                popul.append(Person(person_count, False))
+        return popul
 
     def _simulation_should_continue(self):
         ''' The simulation should only end if the entire population is dead
@@ -89,7 +90,7 @@ class Simulation(object):
                 bool: True for simulation should continue, False if it should end.
         '''
         # TODO: Complete this helper method.  Returns a Boolean.
-        if self.current_infected == 0:
+        if len(self.get_infected()) == 0:
             return False
         else:
             return True
