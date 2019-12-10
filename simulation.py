@@ -145,19 +145,7 @@ class Simulation(object):
         # in as params
         assert person.is_alive == True
         assert random_person.is_alive == True
-
-        # TODO: Finish this method.
-        #  The possible cases you'll need to cover are listed below:
-            # random_person is vaccinated:
-            #     nothing happens to random person.
-            # random_person is already infected:
-            #     nothing happens to random person.
-            # random_person is healthy, but unvaccinated:
-            #     generate a random number between 0 and 1.  If that number is smaller
-            #     than repro_rate, random_person's ID should be appended to
-            #     Simulation object's newly_infected array, so that their .infected
-            #     attribute can be changed to True at the end of the time step.
-        # TODO: Call slogger method during this method.
+        
         if random_person.is_vaccinated:
             self.logger.log_interaction(
                 person, random_person, True, False, False)
@@ -165,21 +153,15 @@ class Simulation(object):
             self.logger.log_interaction(
                 person, random_person, True, False, False)
 
-        infected = True
-       #check if vaccinated, already infected, and just lucky to not catch the virus.
-        if random_person.is_vaccinated == True:
-           #self.BobRossSaved +=1
-           infected = False
-        elif random_person.infection != None:
-           infected = False
         else:
-           infection_rng = random.random()
-           if infection_rng > self.virus.repro_rate:
-               infected = False
-
-        if(infected):
-            self.newly_infected.append(random_person._id)
-
+            infected_chance = random.random()
+            if (infected_chance < person.infection.repro_rate):
+                self.newly_infected.append(random_person._id)
+                self.logger.log_interaction(
+                    person, random_person, False, False, True)
+            else:
+                self.logger.log_interaction(
+                    person, random_person, False, False, False)
 
     def _infect_newly_infected(self):
         ''' This method should iterate through the list of ._id stored in self.newly_infected
