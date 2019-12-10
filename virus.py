@@ -39,3 +39,10 @@ def test_virus_instantiation():
     assert measles.name == "measles"
     assert measles.repro_rate == 0.6
     assert measles.mortality_rate == 0.9
+
+def test_zero_values():
+    virus = Virus("malaria", 0.6, 0.1)
+
+    assert virus.name != ""
+    assert virus.repro_rate > 0.0
+    assert virus.mortality_rate > 0.0
